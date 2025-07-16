@@ -1,15 +1,21 @@
 package com.example.api_med.controller;
 
-import com.example.api_med.core.Adress;
+
 import com.example.api_med.core.Doctor;
 import com.example.api_med.dto.DoctorDto;
+import com.example.api_med.dto.DoctorListDto;
 import com.example.api_med.repository.DoctorRepository;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Comparator;
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/medicos")
@@ -20,11 +26,15 @@ public class DoctorController {
 
     @PostMapping
     @Transactional
-    public void cadastre(@RequestBody DoctorDto doctorDto) {
-
+    public void cadastre(@RequestBody @Valid DoctorDto doctorDto) {
         doctorRepository.save(new Doctor(doctorDto));
-        // Implement the logic to register a doctor
-        // This method will handle POST requests to /doctors
-        // You can add parameters and logic as needed
     }
+
+    @GetMapping("/all")
+    public Page<DoctorListDto> list(@PageableDefault(size = 10, sort = {"name"}) Pageable pagination) {
+        return doctorRepository.findAll(pagination)
+                .map(DoctorListDto::new);
+    }
+
+
 }
