@@ -1,7 +1,9 @@
 package com.example.api_med.core;
 
 import com.example.api_med.dto.DoctorDto;
+import com.example.api_med.dto.DoctorPutDto;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 import lombok.*;
 
 @Entity(name = "Medico")
@@ -24,8 +26,10 @@ public class Doctor {
     private String crm;
     @Embedded
     private Adress adress;
+    private Boolean ativo;
 
     public Doctor(DoctorDto doctorDto) {
+        this.ativo = true;
         this.name = doctorDto.name();
         this.email = doctorDto.email();
         this.phone = doctorDto.phone();
@@ -35,4 +39,24 @@ public class Doctor {
     }
 
 
+    public void put( DoctorPutDto doctorDto) {
+        if(doctorDto.name() != null)
+        {
+        this.name = doctorDto.name();
+        }
+
+        if(doctorDto.phone() != null)
+        {
+            this.phone = doctorDto.phone();
+        }
+        if(doctorDto.adressDto() != null) {
+            this.adress.updateInformation(doctorDto.adressDto());
+        }
+
+    }
+
+    public void desativar()
+    {
+        this.ativo = false;
+    }
 }

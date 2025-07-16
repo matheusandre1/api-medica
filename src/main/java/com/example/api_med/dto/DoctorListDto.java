@@ -5,6 +5,7 @@ import com.example.api_med.core.Doctor;
 import com.example.api_med.core.Specialty;
 
 public record DoctorListDto(
+        Long id,
         String name,
         String email,
         String crm,
@@ -12,6 +13,7 @@ public record DoctorListDto(
 ) {
     public DoctorListDto(Doctor doctor) {
         this(
+                doctor.getId(),
                 doctor.getName(),
                 doctor.getEmail(),
                 doctor.getCrm(),

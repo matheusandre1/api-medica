@@ -27,4 +27,30 @@ public class Adress {
         this.numero = adressDto.numero();
         this.complemento = adressDto.complemento();
     }
+
+    public void updateInformation(AdressDto adressDto) {
+        if(adressDto.logradouro() != null){
+        this.logradouro = adressDto.logradouro();
+        }
+        if(adressDto.bairro() != null)
+        {
+        this.bairro = adressDto.bairro();
+        }
+        if(adressDto.cep() != null)
+        {
+        this.cep = adressDto.cep();
+        }
+        if(adressDto.uf() != null) {
+            this.uf = adressDto.uf();
+        }
+        if(adressDto.cidade() != null){
+        this.cidade = adressDto.cidade();
+        }
+        if(adressDto.numero() != null){
+        this.numero = adressDto.numero();
+        }
+        if(adressDto.complemento() != null) {
+            this.complemento = adressDto.complemento();
+        }
+    }
 }

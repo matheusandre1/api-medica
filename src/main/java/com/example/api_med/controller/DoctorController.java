@@ -4,6 +4,7 @@ package com.example.api_med.controller;
 import com.example.api_med.core.Doctor;
 import com.example.api_med.dto.DoctorDto;
 import com.example.api_med.dto.DoctorListDto;
+import com.example.api_med.dto.DoctorPutDto;
 import com.example.api_med.repository.DoctorRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -32,8 +33,23 @@ public class DoctorController {
 
     @GetMapping("/all")
     public Page<DoctorListDto> list(@PageableDefault(size = 10, sort = {"name"}) Pageable pagination) {
-        return doctorRepository.findAll(pagination)
+        return doctorRepository.findAllByAtivoTrue(pagination)
                 .map(DoctorListDto::new);
+    }
+
+    @PutMapping
+    @Transactional
+    public void atualizar(@RequestBody @Valid DoctorPutDto doctorDto) {
+        var doctor = doctorRepository.getReferenceById(doctorDto.id());
+        doctor.put(doctorDto);
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public void excluir(@PathVariable Long id)
+    {
+        var doctor = doctorRepository.getReferenceById(id);
+        doctor.desativar();
     }
 
 
