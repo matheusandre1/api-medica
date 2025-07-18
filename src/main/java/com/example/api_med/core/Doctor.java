@@ -1,5 +1,6 @@
 package com.example.api_med.core;
 
+import com.example.api_med.dto.AdressDto;
 import com.example.api_med.dto.DoctorDto;
 import com.example.api_med.dto.DoctorPutDto;
 import jakarta.persistence.*;
@@ -38,6 +39,10 @@ public class Doctor {
         this.adress = new Adress(doctorDto.adress());
     }
 
+    public Doctor(AdressDto adressDto)
+    {
+        this.adress = new Adress(adressDto);
+    }
 
     public void put( DoctorPutDto doctorDto) {
         if(doctorDto.name() != null)

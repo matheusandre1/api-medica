@@ -1,5 +1,6 @@
 package com.example.api_med.dto;
 
+import com.example.api_med.core.Doctor;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -19,5 +20,6 @@ public record PatientDto(
         String cpf,
         @NotNull
         @Valid AdressDto adress) {
+
 
 }
