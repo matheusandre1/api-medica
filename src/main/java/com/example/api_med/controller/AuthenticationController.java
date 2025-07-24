@@ -27,6 +27,7 @@ public class AuthenticationController {
     @PostMapping
     public ResponseEntity logIn(@RequestBody @Valid DataRequestLogin dataRequestLogin)
     {
+        try{
 
         var authenticationtoken = new UsernamePasswordAuthenticationToken(dataRequestLogin.login(),dataRequestLogin.password());
 
@@ -34,8 +35,14 @@ public class AuthenticationController {
 
         var token = tokenService.generateToken((User) authentication.getPrincipal());
 
-
         return ResponseEntity.ok(new DataTokenJWT(token));
+
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
 }
