@@ -54,6 +54,11 @@ public class HandleErrors {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro: " +ex.getLocalizedMessage());
     }
 
+    @ExceptionHandler(ValidationException.class)
+    public ResponseEntity handleErroBusinessRule(ValidationException ex) {
+        return ResponseEntity.badRequest().body(ex.getMessage());
+    }
+
     private record DataValidationErrors(String field, String message)
     {
         public DataValidationErrors(FieldError fieldError)

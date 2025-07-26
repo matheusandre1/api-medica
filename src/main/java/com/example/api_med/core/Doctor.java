@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import lombok.*;
 
-@Entity(name = "Medico")
+@Entity
 @Table(name = "medicos")
 @Getter
 @Setter
